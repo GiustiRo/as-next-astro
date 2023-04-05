@@ -72,8 +72,6 @@
                 industries.
             </p>
             <div class="lottie" id="lottie-cross-platform"></div>
-            <!-- <iframe src="https://embed.lottiefiles.com/animation/59621"
-            ></iframe> -->
         </div>
         <div
             class="mx-2 description panel blue d-flex flex-column justify-content-between align-items-start w-75 bg-white text-left p-4 shadow-lg"
@@ -89,9 +87,6 @@
                 vision at a fraction of the cost.
             </p>
             <div class="lottie" id="lottie-emerging-technologies"></div>
-
-            <!-- <iframe src="https://embed.lottiefiles.com/animation/94007"
-            ></iframe> -->
         </div>
         <div
             class="mx-2 description panel blue d-flex flex-column justify-content-between align-items-start w-75 bg-white text-left p-4"
@@ -104,9 +99,6 @@
                 expertise that is crucial to your business.
             </p>
             <div class="lottie" id="lottie-staff-augmentation"></div>
-
-            <!-- <iframe src="https://embed.lottiefiles.com/animation/62900"
-            ></iframe> -->
         </div>
     </div>
 </div>
@@ -175,10 +167,16 @@
     }
 </style>
 <script>
-    import Lottie from "lottie-web";
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
+    window.gsap = gsap; // Once imported. Stored on the window object to reuse.
+    // ScrollTrigger.defaults({markers: true}) // Debug
+    
+    import Lottie from "lottie-web";
+    
+    import { setNewIntersection } from "../../utils/intersection";
+
 
     let hzScrollSection = () => {
         let sections: HTMLElement[] = gsap.utils.toArray(".panel");
@@ -235,19 +233,8 @@
     };
     // loadLotties();
 
-    const observer = new IntersectionObserver(
-        async (entries) => {
-            for (const entry of entries) {
-                if (entry.isIntersecting && entry.target) {
-                    hzScrollSection();
-                    loadLotties();
-
-                    observer.unobserve(entry.target);
-                }
-            }
-        },
-        { threshold: 0, rootMargin: "0px 0px 300px 0px" }
-    );
-    const box = document.querySelector("#section-card-one") as HTMLElement;
-    observer.observe(box);
+    setNewIntersection("#section-card-one", (entry) => {
+        hzScrollSection();
+        loadLotties();
+    });
 </script>

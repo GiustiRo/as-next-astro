@@ -160,22 +160,32 @@ const showGsap = false;
 			<div class="white-to-black-dividers" id="wtbd-3">-</div>
 
 			<!-- VIDEO #################################################################################################### -->
-			<section
+			<section 
+			id="defer-youtube-container"
 				class="main-sections d-flex text-center justify-content-start px-0 align-items-center"
-				style="margin-top: -10vh; z-index: -4"
+				style="margin-top: -10vh; z-index: -4; margin-bottom: 120vh;    transform: scale(2.1) translate(1.2%, 0);"
 			>
+			<!-- transform: scale(1.5) translateX(1.2%) -->
 				<YoutubeVideo />
 			</section>
+
+			<!-- <section
+			id="zoom-out-to-gsap"
+				class="main-sections d-flex text-center justify-content-start px-0 align-items-center"
+				style="z-index: -5; height: 100vh !important"
+			>
+			</section> -->
 
 			<!-- <div class="white-to-black-dividers" id="wtbd-a-1">-</div>
 			<div class="white-to-black-dividers" id="wtbd-a-2">-</div>
 			<div class="white-to-black-dividers" id="wtbd-a-3">-</div> -->
 
-			<a id="case-studies">
+			<a id="case-studies" style="background: black">
 				<!-- STUDY CASES #################################################################################################### -->
 				<StudyCase />
 			</a>
 
+			<div id="footer-thee-trigger"></div>
 			<!-- Footer #################################################################################################### -->
 			<Footer />
 		</div>

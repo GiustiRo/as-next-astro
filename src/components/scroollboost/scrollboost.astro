@@ -102,6 +102,8 @@
 
 <script>
     import ScrollBooster from "scrollbooster";
+
+    import { setNewIntersection } from "../../utils/intersection";
     let setScrollBoost = (contentId: string, wraperId: string) => {
         let content = document.querySelector(contentId) as HTMLElement;
         new ScrollBooster({
@@ -154,25 +156,11 @@
             ?.addEventListener("mouseleave", () => {
                 toggleDraggable(false);
             });
+    };
 
-    }
-    // setScrollBoost("#scrollboost", "#scrollboost-wrap");
-    // setDraggableMouse();
-
-    const observer = new IntersectionObserver(
-        async (entries) => {
-            for (const entry of entries) {
-                if (entry.isIntersecting && entry.target) {
-                    setToggleDraggableMouse();
-                    setScrollBoost("#scrollboost", "#scrollboost-wrap");
-                    setDraggableMouse();
-
-                    observer.unobserve(entry.target);
-                }
-            }
-        },
-        { threshold: 0, rootMargin: "0px 0px 300px 0px" }
-    );
-    const box = document.querySelector("#defer-scroll-boost") as HTMLElement;
-    observer.observe(box);
+    setNewIntersection("#defer-scroll-boost", (entry) => {
+        setToggleDraggableMouse();
+        setScrollBoost("#scrollboost", "#scrollboost-wrap");
+        setDraggableMouse();
+    });
 </script>

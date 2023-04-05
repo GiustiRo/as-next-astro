@@ -29,8 +29,8 @@
   let bloomPass!: UnrealBloomPass;
 
   // PARTICLES
-  let particlesCount = 400;
-  let positions = new Float32Array(particlesCount * 5);
+  let particlesCount = 200;
+  let positions = new Float32Array(particlesCount * 3);
   let particlesGeometry = new THREE.BufferGeometry();
   let particlesMaterial = new THREE.PointsMaterial({
     color: "#ffeded",
@@ -38,6 +38,9 @@
     size: 0.1,
   });
   let particles = new THREE.Points(particlesGeometry, particlesMaterial);
+
+  // Switch Scroll Mode
+  let ytSectionTrigger = false;
 
   // FIRST OF ALL: CREATE A SCENE
   let createScene = () => {
@@ -50,6 +53,9 @@
     camera = new THREE.PerspectiveCamera(35, aspectRatio, 1, 1000);
     camera["position"].z = 35;
     camera["rotation"].y = 0.3;
+
+    
+    // const axesHelper = new THREE.AxesHelper(5);scene.add(axesHelper);// DEBUG
   };
 
   // LIGHT
@@ -179,35 +185,46 @@
     bottomRotation: number
   ) => {
     let recalculate = () => {
-      let multy = 200;
-      if (screen && screen.rotation.x >= 0 && window.scrollY / multy <= 1.8) {
-        screen?.rotation.set(bottomRotation - window.scrollY / multy, 0, 0);
-        display?.rotation.set(bottomRotation - window.scrollY / multy, 0, 0);
-        blackFrame?.rotation.set(bottomRotation - window.scrollY / multy, 0, 0);
-        // this.camera.position.x = (window.scrollY / multy) * 2;
-        // this.camera.rotation.y = (window.scrollY / multy) / 5;
-        scene["rotation"].y = -(window.scrollY / multy / 5);
-      } else {
-        // Max thresold or top value
-        screen?.rotation.set(0, 0, 0);
-        display?.rotation.set(0, 0, 0);
-        blackFrame?.rotation.set(0, 0, 0);
-      }
+      // console.warn("recalculating", ytSectionTrigger, window.scrollY);
+      if (!ytSectionTrigger) {
+        let multy = 200;
+        if (screen && screen.rotation.x >= 0 && window.scrollY / multy <= 1.8) {
+          screen?.rotation.set(bottomRotation - window.scrollY / multy, 0, 0);
+          display?.rotation.set(bottomRotation - window.scrollY / multy, 0, 0);
+          blackFrame?.rotation.set(
+            bottomRotation - window.scrollY / multy,
+            0,
+            0
+          );
+          scene["rotation"].y = -(window.scrollY / multy / 5);
+        } else {
+          // Max thresold or top value
+          screen?.rotation.set(0, 0, 0);
+          display?.rotation.set(0, 0, 0);
+          blackFrame?.rotation.set(0, 0, 0);
+        }
 
-      if (window.scrollY / multy > 1.8) {
-        // Top values (won't exceed)
-        camera["position"].y =
-          -(window.scrollY / multy - 1.8) * (window.innerHeight / multy);
-        scene["rotation"].y = -0.356;
+        if (window.scrollY / multy > 1.8) {
+          // Top values (won't exceed)
+          camera["position"].y =
+            -(window.scrollY / multy - 1.8) * (window.innerHeight / multy);
+          scene["rotation"].y = -0.356;
+        } else {
+          camera["position"].y = 0;
+        }
       } else {
-        camera["position"].y = 0;
+        // Footer Section
+        // first set all to defaults
+        // console.warn(window.innerHeight);
+        let amountSections = document.querySelectorAll('sections').length;
+        let switchThres = window.innerHeight * amountSections - 500;
+      
       }
       composer.render();
     };
     window.addEventListener("scroll", (e) => recalculate()); // CLOSED => TO => OPEN
     setTimeout(() => recalculate()); // Run after first load.
     // console.clear();
-
   };
 
   let setParticles = () => scene.add(particles);
@@ -237,6 +254,20 @@
   }
 
   init();
+
+  // Set Scene behind
+  import { setNewIntersection } from "../../utils/intersection";
+  setNewIntersection(
+    "#footer-thee-trigger",
+    (entry) => {
+      // setSceneBehind();
+    },
+    "0px 0px 1000px 0px"
+  );
+
+  let setSceneBehind = () => {
+    ytSectionTrigger = true;
+  };
 </script>
 <style>
   :host {

@@ -1,49 +1,152 @@
 ---
 ---
 
-<div id="defer-youtube-container" class="youtube-container">
-    <!-- src="https://www.youtube.com/embed/yniNLbtXol0?controls=0&showinfo=0&autoplay=1&fs=0&rel=0&modestbranding=1&loop=1&mute=1&playlist=yniNLbtXol0" -->
-    <iframe
-        width="100%"
-        height="100%"
-        title="Alabama Solutions Reel"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen></iframe>
+<div class="youtube-scaled-container" id="back-laptop">
+    <div class="youtube-container">
+        <div class="exclude-yt-content">
+            <iframe
+                width="100%"
+                height="100%"
+                title="Alabama Solutions Reel"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+        </div>
+        <!-- <img width="20%" height="20%" src="/repo/screenrec.gif" alt="" /> -->
+    </div>
 </div>
+
 <style>
+    .youtube-scaled-container {
+        /* overflow: hidden; */
+        width: 101%;
+        margin-left: -1%;
+        /* aspect-ratio: 16/9; */
+    }
     .youtube-container {
-        mix-blend-mode: hard-light;
+        /* mix-blend-mode: hard-light; */
         overflow: hidden;
         width: 101%;
         margin-left: -1%;
-        /* Keep it the right aspect-ratio */
         aspect-ratio: 16/9;
         /* No clicking/hover effects */
-        filter: invert(1) grayscale(1);
+        /* filter: invert(1) grayscale(1); */
     }
 
-    .youtube-container iframe {
-        /* Extend it beyond the viewport... */
-        width: 300%;
+    .youtube-container iframe,
+    .youtube-container img {
+        /* width: 300%;
         height: 100%;
-        /* ...and bring it back again */
-        margin-left: -100%;
+         margin-left: -100%;
         margin-top: -4vh;
+        mix-blend-mode: hard-light;
+        filter: invert(1) grayscale(1); */
+        width: 300%;
+        margin-left: -100% !important;
+        height: 100%;
+        margin-left: 0%;
+        margin-top: -1%;
+        mix-blend-mode: hard-light;
+        filter: invert(1) grayscale(1);
+        min-height: 48%;
+        aspect-ratio: 16/9;
+        border: none !important;
+    }
+
+    #back-laptop {
+        background-image: url("/images/laptop.png");
+        background-position: center center;
+        background-size: 115%;
+        mix-blend-mode: none;
+        filter: none;
+    }
+    .exclude-yt-content {
+        width: 49%;
+        margin-left: 0%;
+        margin-top: 8vh;
+        min-height: 50%;
+        aspect-ratio: 16/9;
+        overflow: hidden;
+        left: 5px;
+        position: relative;
+        margin-inline: auto;
     }
 </style>
 <script>
-     const observer = new IntersectionObserver(
-        async (entries) => {
-            for (const entry of entries) {
-                if (entry.isIntersecting && entry.target) {
-                    const iframe = entry.target.querySelector("iframe");
-                    entry.target.querySelector('iframe')!.src = 'https://www.youtube.com/embed/yniNLbtXol0?controls=0&showinfo=0&autoplay=1&fs=0&rel=0&modestbranding=1&loop=1&mute=1&playlist=yniNLbtXol0';
-                    observer.unobserve(entry.target);
-                }
-            }
+    import { setNewIntersection } from "../../utils/intersection";
+    setNewIntersection(
+        "#defer-youtube-container",
+        (entry) => {
+            entry.target.querySelector("iframe")!.src =
+                "https://www.youtube.com/embed/yniNLbtXol0?controls=0&showinfo=0&autoplay=1&fs=0&rel=0&modestbranding=1&loop=1&mute=1&playlist=yniNLbtXol0";
         },
-        { threshold: 0, rootMargin: "0px 0px 1000px 0px" }
+        "0px 0px 1000px 0px"
     );
-    const box = document.querySelector("#defer-youtube-container") as HTMLElement;
-    observer.observe(box);
+
+    import { gsap } from "gsap";
+    // import { ScrollTrigger } from "gsap/ScrollTrigger";
+    // gsap.registerPlugin(ScrollTrigger);
+    console.log(window.gsap);
+    let hzScrollSection = () => {
+        const timelineHeader = gsap.timeline({
+            scrollTrigger: {
+                id: "ZOOM", // Custom label to the marker
+                trigger: "#defer-youtube-container", // What element triggers the scroll
+                scrub: 0.5, // Add a small delay of scrolling and animation. `true` is direct
+                start: "top top", // Start at top of Trigger and at the top of the viewport
+                end: "+=150% 20%", // The element is 500px hight and end 50px from the top of the viewport
+                pin: true, // Pin the element true or false,
+                // pinType: "fixed", // improved flickering.
+            },
+        });
+
+        timelineHeader
+            // .from(
+            //     "#defer-youtube-container",
+            //     {
+            //         scale: 1,
+            //     },
+            //     "sameTime"
+            // )
+            .to(
+                "#defer-youtube-container",
+                {
+                    scale: 0.5,
+                    translateY: "-50%",
+                },
+                "sameTime"
+            )
+            .to(
+                "#zoom-out-to-gsap",
+                {
+                    scale: 0.5,
+                },
+                "sameTime"
+            )
+            .to(
+                "#defer-youtube-container",
+                {
+                    scale: 0.5,
+                    translateY: "-150%",
+                    rotate: 20,
+                },
+                "after"
+            );
+        // gsap.to(sections, {
+        //     xPercent: -130 * (sections.length - 1),
+        //     ease: "none",
+        //     scrollTrigger: {
+        //         anticipatePin: 1,
+        //         trigger: ".container-hz",
+        //         pin: true,
+        //         scrub: 1,
+        //         snap: 0,
+        //         end: () => totalWidthClient,
+        //         pinType: "fixed", // improved flickering.
+        //         // snap: 1 / (sections.length - 1),
+        //         // markers: true
+        //     },
+        // });
+        // window.addEventListener("resize", () => ScrollTrigger.refresh());
+    };
+    hzScrollSection();
 </script>
