@@ -1,7 +1,7 @@
 # AS New Site
 
 
-![blog](/public/repo/screenshot.png)
+![prev](/public/repo/screenrec.gif)
 
 Built With:
 
