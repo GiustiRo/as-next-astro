@@ -1,0 +1,178 @@
+---
+---
+
+<div
+    id="defer-scroll-boost"
+    class="col-12 px-0 h-100 d-flex justify-content-center flex-column align-items-center"
+>
+    <div class="d-flex flex-column w-100 intro-text" data-defer="hidden">
+        <div
+            class="intro-text-anim align-items-center justify-content-center"
+            style="height: fit-content;"
+        >
+            <h1
+                class="as-font mt-4 mb-0 section-header"
+                style="animation-delay: .2s !important; font-size: 9vw;"
+            >
+                PARTNERS
+            </h1>
+        </div>
+        <div
+            class="intro-text-anim align-items-center justify-content-center"
+            style="animation-delay: .3s; height: 9vh;"
+        >
+            <h2 style="font-family: monospace;">
+                Some of the amazing costumers we have worked with
+            </h2>
+        </div>
+    </div>
+    <div
+        id="scrollboost-wrap"
+        class="d-flex justify-content-center align-items-center w-75 h-50 bg-gradient-alt as-font rounded-5 overflow-hidden"
+    >
+        <div
+            id="scrollboost"
+            class="d-flex flex-row col-12 flex-nowrap gap-5 justify-content-start align-items-center partners-container"
+        >
+            <img
+                src="https://alabamasolutions.com/wp-content/uploads/2021/11/logo-removebg-resize.png"
+                class="col-4"
+                width="100%"
+                alt=""
+            />
+            <img
+                src="https://alabamasolutions.com/wp-content/uploads/2021/08/normal_normal_2.png"
+                alt=""
+                class="col-4"
+                width="100%"
+            />
+            <img
+                src="https://alabamasolutions.com/wp-content/uploads/2021/11/logo-removebg-preview.png"
+                alt=""
+                class="col-4"
+                width="100%"
+            />
+            <img
+                src="https://gabrielvallone.com.uy/static/media/CUTI.7824a361.png"
+                alt=""
+                class="col-4"
+                width="100%"
+            />
+        </div>
+    </div>
+    <div
+        id="mouse-circle"
+        class="d-flex align-items-center justify-content-center"
+    >
+        <!-- Arrows style... -->
+        <span>&lt &gt</span>
+    </div>
+</div>
+
+<style>
+    h2,
+    h1 {
+        margin: 0;
+        color: var(--as-dark);
+    }
+
+    .partners-container {
+        filter: grayscale(1);
+        mix-blend-mode: multiply;
+    }
+
+    #scrollboost-wrap {
+        /* box-shadow: -5px 5px 40px -10px #9b70d3, 5px -5px 40px -10px #e9dbdf;*/
+    }
+
+    #mouse-circle {
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        margin: -32px 0px 0px -32px;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        pointer-events: none !important;
+        left: calc(50% - 12px);
+        top: 30px;
+        opacity: 0;
+        transition: 0.1s;
+    }
+</style>
+
+<script>
+    import ScrollBooster from "scrollbooster";
+    let setScrollBoost = (contentId: string, wraperId: string) => {
+        let content = document.querySelector(contentId) as HTMLElement;
+        new ScrollBooster({
+            viewport: document.querySelector(wraperId),
+            content: content,
+            scrollMode: "transform",
+            direction: "horizontal",
+            emulateScroll: true,
+            bounce: true,
+        });
+    };
+
+    let setDraggableMouse = () => {
+        let mousePosX = 0,
+            mousePosY = 0,
+            mouseCircle = document.getElementById("mouse-circle");
+
+        document.onmousemove = (e) => {
+            mousePosX = e.pageX;
+            mousePosY = e.pageY;
+        };
+
+        let delay = 6,
+            revisedMousePosX = 0,
+            revisedMousePosY = 0;
+
+        function delayMouseFollow() {
+            requestAnimationFrame(delayMouseFollow);
+
+            revisedMousePosX += (mousePosX - revisedMousePosX) / 3;
+            revisedMousePosY += (mousePosY - revisedMousePosY) / 3;
+
+            mouseCircle!.style.top = revisedMousePosY + "px";
+            mouseCircle!.style.left = revisedMousePosX + "px";
+        }
+        delayMouseFollow();
+    };
+    let toggleDraggable = (show: boolean) => {
+        let mouseCircle = document.getElementById("mouse-circle");
+        mouseCircle!.style.opacity = show ? "1" : "0";
+    };
+    let setToggleDraggableMouse = () => {
+        document
+            .getElementById("scrollboost-wrap")
+            ?.addEventListener("mouseenter", () => {
+                toggleDraggable(true);
+            });
+        document
+            .getElementById("scrollboost-wrap")
+            ?.addEventListener("mouseleave", () => {
+                toggleDraggable(false);
+            });
+
+    }
+    // setScrollBoost("#scrollboost", "#scrollboost-wrap");
+    // setDraggableMouse();
+
+    const observer = new IntersectionObserver(
+        async (entries) => {
+            for (const entry of entries) {
+                if (entry.isIntersecting && entry.target) {
+                    setToggleDraggableMouse();
+                    setScrollBoost("#scrollboost", "#scrollboost-wrap");
+                    setDraggableMouse();
+
+                    observer.unobserve(entry.target);
+                }
+            }
+        },
+        { threshold: 0, rootMargin: "0px 0px 300px 0px" }
+    );
+    const box = document.querySelector("#defer-scroll-boost") as HTMLElement;
+    observer.observe(box);
+</script>

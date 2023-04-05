@@ -1,0 +1,364 @@
+ /*https://docs.astro.build/es/guides/fonts/*/
+
+
+ :root {
+ 	/* colors pallete */
+ 	--as-dark: #171717;
+ 	--as-white: #FEFEFE;
+ 	--as-pri: #A16BE8;
+ 	--as-sec: #F0DFDF;
+ 	--as-thi: #3E4979;
+ 	--as-qua: #C83B59;
+
+ 	--as-pri-rgb: 11 68 124;
+ 	--as-sec-rgb: 216 8 43;
+
+ 	--as-font: 'MuseoModerno', sans-serif;
+ 	--as-font-alt: 'Montserrat', sans-serif;
+ }
+
+ #three-loader-overlay {
+ 	display: flex;
+ 	flex-direction: column;
+ 	justify-content: center;
+ 	align-items: center;
+ 	transition: .5s ease;
+ 	position: fixed;
+ 	top: 0;
+ 	z-index: 99999999999;
+ 	width: 100vw;
+ 	height: 100vh;
+ 	background-color: #000;
+ }
+
+ #three-loader-status {
+ 	font-size: 10vw;
+ }
+
+ html {
+ 	scroll-behavior: initial;
+ }
+
+ body {
+ 	background: #000000;
+ 	overflow-x: hidden;
+
+ }
+
+ html,
+ body {
+ 	width: 100%;
+ 	min-height: 100%;
+ 	scroll-behavior: initial !important;
+ 	margin: 0;
+ 	padding: 0;
+ 	/* background: #000000; */
+ 	color: var(--as-white);
+ 	font-family: var(--as-font);
+
+ }
+
+ p,
+ h1,
+ h2,
+ h3,
+ h4,
+ h5,
+ h6,
+ span,
+ td,
+ th,
+ a,
+ small,
+ button,
+ input,
+ textarea {
+ 	font-family: var(--as-font);
+ 	color: var(--as-white);
+ }
+
+
+
+ /* ################## FONTS */
+ .as-font {
+ 	font-family: var(--as-font);
+ }
+
+ .as-font-alt {
+ 	font-family: var(--as-font-alt), monospace;
+ }
+
+ /* ############### BUTTONS */
+ button {
+ 	font-family: var(--as-font-alt) !important;
+ }
+
+ .btn {
+ 	padding: 10px;
+ 	border-radius: 8px;
+ 	cursor: pointer;
+ }
+
+ .btn-primary,
+ .btn-secondary {
+ 	filter: saturate(0.8);
+ 	display: inline-flex;
+ 	color: var(--as-white);
+ 	background: linear-gradient(45deg, var(--as-pri), var(--as-pri), var(--as-sec));
+ 	background-size: 200%;
+ 	background-position: 100%;
+ 	border: none;
+ 	transition: .3s;
+ 	box-shadow: 0 0 0 0 var(--as-pri);
+ }
+
+ .btn-primary:hover,
+ .btn-secondary:hover {
+ 	filter: saturate(1);
+ 	font-weight: 500;
+ 	padding-inline: 20px;
+ 	color: var(--as-white);
+ 	background-position: 0%;
+ 	box-shadow: 0 0 20px -5px var(--as-pri);
+ }
+
+ .btn-primary:hover .hidden-icon,
+ .btn-secondary:hover .hidden-icon {
+ 	width: 16px;
+ 	margin-left: 12px !important;
+ }
+
+
+ .hidden-icon {
+ 	transition: .3s;
+ 	display: inline;
+ 	width: 0;
+ 	overflow: hidden;
+ 	margin-left: 0px !important;
+
+ }
+
+ .icon-sm {
+ 	width: 16px !important;
+ }
+
+ .glow-text {
+ 	text-shadow: 0 0 20px white;
+ }
+
+ .glow-text * {
+ 	text-shadow: inherit;
+ }
+
+
+ .pointer {
+ 	cursor: pointer;
+ }
+
+ #welcome_box img {
+ 	width: 100%;
+ }
+
+ /* Home Sections common*/
+ .main-sections {
+ 	height: 100vh;
+ }
+
+ .bg-gradient-alt {
+ 	background: linear-gradient(45deg, #9b70d3, #e9dbdf);
+ 	box-shadow: 0 0 20px -10px black;
+ }
+
+ .section-header {
+ 	letter-spacing: 0.1vw;
+ 	font-size: 6vw !important;
+ 	font-weight: bold;
+ }
+
+ .intro-text-anim span,
+ .intro-text-anim h1,
+ .intro-text-anim h2,
+ .intro-text-anim h3,
+ .intro-text-anim p {
+ 	text-shadow: 0 0 20px transparent;
+ 	transform: translateY(15vw);
+ 	/* text-transform: uppercase; */
+ 	animation: intro_text_simple 1s cubic-bezier(0.76, 0, 0.3, 1) 1 forwards;
+ 	animation-delay: 0.3s;
+ }
+
+ .intro-text-anim {
+ 	display: flex;
+ 	height: 12vw;
+ 	transition: 0.3s;
+ 	overflow: hidden;
+ }
+
+ /*#############################################################  */
+ /*#############################################################  */
+ /*############################################################# KEYFRAMES */
+ /*#############################################################  */
+ /*#############################################################  */
+
+
+
+ @keyframes scrolldown {
+ 	0% {
+ 		background-position: 0 -60px;
+ 	}
+
+ 	60% {
+ 		background-position: 0 -60px;
+ 	}
+
+ 	75% {
+ 		background-position: 0 0;
+ 	}
+
+ 	100% {
+ 		background-position: 0 60px;
+ 	}
+ }
+
+ @keyframes text_rotation {
+ 	to {
+ 		transform: rotateZ(10deg) translateX(20%) translateY(25vh);
+ 	}
+ }
+
+ @keyframes intro_text {
+ 	50% {
+ 		transform: translateY(-20px);
+ 	}
+
+ 	100% {
+ 		text-shadow: 0 0 15px rgba(255, 255, 255, 0.752);
+ 		transform: translateY(0px);
+ 	}
+ }
+
+ @keyframes intro_text_simple {
+ 	50% {
+ 		transform: translateY(-10px);
+ 	}
+
+ 	100% {
+ 		transform: translateY(-5px);
+ 	}
+ }
+
+ /* DIVIDER (> > >)*/
+ @keyframes rotate_divider {
+ 	to {
+ 		transform: rotateX(3600deg);
+ 	}
+ }
+
+ /* GRAIN */
+ .grain-wrap {
+ 	position: fixed;
+ 	z-index: 1300;
+ 	inset: 0;
+ 	pointer-events: none;
+ }
+
+ .grain-layer {
+ 	height: 300%;
+ 	width: 300%;
+ 	background-image: url("/public/images/grain.png");
+ 	opacity: 0.05;
+ 	-webkit-animation: animateGrain 8s steps(5) infinite;
+ 	animation: animateGrain 8s steps(5) infinite;
+ }
+
+ .vignete-layer {
+ 	box-shadow: 0 0 100px 30px #000 inset;
+ 	height: 110%;
+ 	width: 110%;
+ 	opacity: 1;
+ 	border-radius: 100px;
+ 	margin-left: -5%;
+ 	margin-top: -3%;
+ }
+
+
+ @keyframes animateGrain {
+
+ 	0%,
+ 	100% {
+ 		-webkit-translate: 0 0;
+ 		-moz-translate: 0 0;
+ 		-ms-translate: 0 0;
+ 		translate: 0 0;
+ 	}
+
+ 	10% {
+ 		-webkit-translate: -5% -10%;
+ 		-moz-translate: -5% -10%;
+ 		-ms-translate: -5% -10%;
+ 		translate: -5% -10%;
+ 	}
+
+ 	20% {
+ 		-webkit-translate: -15% -20%;
+ 		-moz-translate: -15% -20%;
+ 		-ms-translate: -15% -20%;
+ 		translate: -15% -20%;
+ 	}
+
+ 	30% {
+ 		-webkit-translate: -5% -10%;
+ 		-moz-translate: -5% -10%;
+ 		-ms-translate: -5% -10%;
+ 		translate: -5% -10%;
+ 	}
+
+ 	40% {
+ 		-webkit-translate: -15% -20%;
+ 		-moz-translate: -15% -20%;
+ 		-ms-translate: -15% -20%;
+ 		translate: -15% -20%;
+ 	}
+
+ 	50% {
+ 		-webkit-translate: -5% -10%;
+ 		-moz-translate: -5% -10%;
+ 		-ms-translate: -5% -10%;
+ 		translate: -5% -10%;
+ 	}
+
+ 	60% {
+ 		-webkit-translate: -15% -20%;
+ 		-moz-translate: -15% -20%;
+ 		-ms-translate: -15% -20%;
+ 		translate: -15% -20%;
+ 	}
+
+ 	70% {
+ 		-webkit-translate: -5% -10%;
+ 		-moz-translate: -5% -10%;
+ 		-ms-translate: -5% -10%;
+ 		translate: -5% -10%;
+ 	}
+
+ 	80% {
+ 		-webkit-translate: -15% -20%;
+ 		-moz-translate: -15% -20%;
+ 		-ms-translate: -15% -20%;
+ 		translate: -15% -20%;
+ 	}
+
+ 	90% {
+ 		-webkit-translate: -5% -10%;
+ 		-moz-translate: -5% -10%;
+ 		-ms-translate: -5% -10%;
+ 		translate: -5% -10%;
+ 	}
+
+ 	100% {
+ 		-webkit-translate: -15% -20%;
+ 		-moz-translate: -15% -20%;
+ 		-ms-translate: -15% -20%;
+ 		translate: -15% -20%;
+ 	}
+ }

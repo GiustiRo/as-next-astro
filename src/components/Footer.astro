@@ -1,0 +1,102 @@
+---
+const today = new Date();
+import HeaderLink from "./HeaderLink.astro";
+---
+
+<footer
+	id="section-footer"
+	class="main-sections d-flex flex-column text-center justify-content-start px-0 align-items-center"
+>
+	<!-- <div class="w-100 h-100 position-absolute"> -->
+	<div id="footer-gradient"><br /></div>
+	<!-- <video
+		class="main-sections w-100"
+		id="footer-video"
+		muted
+		loop
+		autoplay
+		playsinline
+		style="height: 100vh; width: 100%; filter: brightness(0.5) grayscale(0.8) contrast(1.6); aspect-ratio: 16/9; object-fit: cover;"
+	>
+		<source src="/public/video/footer.mp4" type="video/mp4" />
+	</video> -->
+
+	<!-- RIPPLE -->
+	<!-- style="height: 100vh; width: 100%; filter: brightness(0.7) grayscale(1); aspect-ratio: 16/9; object-fit: cover;" -->
+	<!-- ROCKS -->
+	<!-- style="height: 100vh; width: 100%; filter: brightness(0.6) grayscale(1) contrast(4.1); aspect-ratio: 16/9; object-fit: cover;"> -->
+	<!-- </div> -->
+
+	<div
+		class="d-flex flex-column justify-content-between align-items-center w-100 p-0"
+		style="position: absolute;height: 100vh; z-index: 2"
+	>
+		<div class="d-flex flex-column col-12 text-center gap-3 mt-5">
+			<h2 class="col-6 m-auto">
+				Sign up for our <b> newsletter </b> <br>and stay up-to-date on all things.
+			</h2>
+			<div class="d-flex col-12 justify-content-center mt-2">
+				<button class="btn btn-primary">Subscribe</button>
+			</div>
+			<div
+				class="mt-5 text-start d-flex flex-row justify-content-between col-10 m-auto mb-5"
+			>
+				<div
+					class="col-4 text-start text-white as-font-alt"
+					style="line-height: 30px;"
+				>
+					<h2 class="as-font">Contact Us</h2>
+					Montevideo, Uruguay
+					<br />
+					World Trade Center: L. A. de Herrera 1248 Torre II Of. 710
+					<br />
+					(+598) 26059354
+					<br />
+					contact@alabamasolutions.com <br />
+				</div>
+				<div
+					class="col-4 text-start text-white as-font-alt"
+					style="line-height: 30px;"
+				>
+					<h2 class="as-font">Quick Links</h2>
+					<HeaderLink href="/">Home</HeaderLink>
+					<br />
+					<HeaderLink href="/#case-studies">Case Studies</HeaderLink>
+					<br />
+					<HeaderLink href="/blog">Blog</HeaderLink>
+
+					<br />Careers
+					<br />
+					<!-- News
+					<br /> -->
+				</div>
+			</div>
+		</div>
+		<div
+			class="intro-text d-flex flex-column w-100 justify-content-center align-items-center"
+		>
+			<div
+				class="d-flex m-auto col-10 mb-4"
+				style="height: 2px; background-color: white; opacity: 0.5; border-radius: 5px"
+			>
+				<br />
+			</div>
+			<div class="intro-text-anim pb-2" style="height: 9vh">
+				<span style="font-size: 4vw; letter-spacing: 1vw;"
+					>
+					<!-- ALABAMA SOLUTIONS -->
+					</span
+				>
+			</div>
+		</div>
+	</div>
+</footer>
+<style>
+	#footer-gradient {
+		width: 100%;
+		height: 50vh;
+		position: absolute;
+		z-index: 1;
+		background: linear-gradient(180deg, black, transparent);
+	}
+</style>

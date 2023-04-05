@@ -1,0 +1,347 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import ThreeJs from "../components/three-js/three-js.astro";
+import GsapSection from "../components/gsap/gsap-section.astro";
+import Scrollboost from "../components/scroollboost/scrollboost.astro";
+import StudyCase from "../components/StudyCase.astro";
+import YoutubeVideo from "../components/yt-video/YoutubeVideo.astro";
+
+const sections = [
+	{ id: "first-section", show: true },
+	{ id: "second-section", show: false },
+	{ id: "gsap-section", show: false },
+];
+const showGsap = false;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<div id="three-loader-overlay">
+			<span id="three-loader-status">0%</span>
+		  </div>
+
+		<Header title={SITE_TITLE} />
+		<div
+			id="full-page-wraper"
+			class="col-12 d-flex flex-column p-0"
+			style="min-height: 300vh; position: relative; transition: background 0.5s"
+		>
+			<div
+				id="welcome-box"
+				class="align-self-center col-12 d-flex justify-content-center"
+			>
+				<ThreeJs />
+			</div>
+			<!-- Title Section  -->
+			<section
+				id="first-section"
+				class="d-flex text-center justify-content-start px-5 align-items-center position-relative"
+			>
+				<div class="intro-text d-flex flex-column w-75">
+					<div class="intro-text-anim">
+						<span id="intro-alabama">Alabama</span>
+					</div>
+					<div class="intro-text-anim" style="margin-top: -20px;">
+						<span id="intro-solutions">Solutions</span>
+					</div>
+				</div>
+				<div class="scrolldown"></div>
+			</section>
+			<!-- Subtitle Section  -->
+			<section
+				id="second-section"
+				data-defer="hidden"
+				class="main-sections d-flex text-center justify-content-start px-5 align-items-center"
+			>
+				<div class="intro-text d-flex flex-column w-75">
+					<div class="intro-text-anim">
+						<span id="intro-alabama">We Build</span>
+					</div>
+					<div class="intro-text-anim" style="margin-top: -20px;">
+						<span id="intro-future">The Future</span>
+					</div>
+				</div>
+			</section>
+
+			<!-- OUR VALUE ############################################################################ -->
+			<section
+				id={sections[2].id}
+				data-defer="hidden"
+				class="main-sections d-flex flex-row text-left justify-content-start p-0 align-items-start container-hz"
+				style="z-index: 2"
+			>
+				<GsapSection />
+				<!-- <GsapSection client:visible /> -->
+				<!-- <GsapSection client:visible /> -->
+			</section>
+
+			<!-- DIVIDER ### -->
+			<div style="height: 100vh">o</div>
+			<!-- DIVIDER ### -->
+
+			<!-- PARTNERS #################################################################################################### -->
+			<section
+				id="section-partners"
+				style="margin-top:-20px"
+				class="main-sections d-flex text-center justify-content-start px-0 align-items-center mb-5 pb-5 bg-white"
+			>
+				<Scrollboost />
+			</section>
+			<!-- AWARDS #################################################################################################### -->
+			<section
+				id="section-awards"
+				style="margin-top:-50px"
+				class="main-sections d-flex text-center justify-content-start px-0 align-items-center mb-5 pb-5 bg-white"
+			>
+				<!-- <p id="main-diagonal-text" class="m-0 anim">
+					ALABAMASOLUTIONSALABAMASOLUTIONSALABAMASOLUTIONSALABAMASOLUTIONSALABAMASOLUTIONSALABAMASOLUTIONSALABAMASOLUTIONSALABAMASOLUTIONSALABAMASOLUTIONSALABAMASOLUTIONSALABAMASOLUTIONSALABAMASOLUTIONSALABAMASOLUTIONSALABAMASOLUTIONSALABAMASOLUTIONSALABAMASOLUTIONS
+				</p> -->
+				<div
+					class="col-12 px-0 h-100 d-flex justify-content-center flex-column align-items-center"
+				>
+					<div
+						class="d-flex flex-column w-100 intro-text"
+						data-defer="hidden"
+					>
+						<div
+							class="intro-text-anim align-items-center justify-content-center"
+							style="height: fit-content;"
+						>
+							<h1
+								class="as-font mt-4 mb-0 text-dark section-header"
+								style="animation-delay: .2s !important; font-size: 9vw;
+								"
+							>
+								AWARDS
+							</h1>
+						</div>
+						<div
+							class="intro-text-anim align-items-center justify-content-center text-dark"
+							style="animation-delay: .3s; height: 9vh;"
+						>
+							<h2
+								style="font-family: monospace; text-transform:none"
+								class="text-dark m-0"
+							>
+								Some of the awards we have won
+							</h2>
+						</div>
+					</div>
+					<div
+						class="d-flex justify-content-center align-items-center w-75 h-50 bg-gradient-alt as-font rounded-5"
+					>
+						<div
+							class="d-flex flex-row w-100 flex-nowrap gap-5 justify-content-center align-items-center awards-container px-5"
+						>
+							<img
+								src="https://alabamasolutions.com/wp-content/uploads/2022/11/IBA22_Bronze_Winner-1.png"
+								width="20%"
+								alt=""
+							/>
+							<img
+								style="mix-blend-mode: darken;"
+								src="https://www.pngitem.com/pimgs/m/234-2347741_holini-clutch-badge-clutch-co-hd-png-download.png"
+								width="50%"
+								alt=""
+							/>
+						</div>
+					</div>
+				</div>
+			</section>
+			<div class="white-to-black-dividers" id="wtbd-1">-</div>
+			<div class="white-to-black-dividers" id="wtbd-2">-</div>
+			<div class="white-to-black-dividers" id="wtbd-3">-</div>
+
+			<!-- VIDEO #################################################################################################### -->
+			<section
+				class="main-sections d-flex text-center justify-content-start px-0 align-items-center"
+				style="margin-top: -10vh; z-index: -4"
+			>
+				<YoutubeVideo />
+			</section>
+
+			<!-- <div class="white-to-black-dividers" id="wtbd-a-1">-</div>
+			<div class="white-to-black-dividers" id="wtbd-a-2">-</div>
+			<div class="white-to-black-dividers" id="wtbd-a-3">-</div> -->
+
+			<a id="case-studies">
+				<!-- STUDY CASES #################################################################################################### -->
+				<StudyCase />
+			</a>
+
+			<!-- Footer #################################################################################################### -->
+			<Footer />
+		</div>
+
+		<!-- GRAIN  -->
+		<div class="grain-wrap">
+			<div class="grain-layer"></div>
+		</div>
+		<!-- VIÑETA -->
+		<div class="grain-wrap">
+			<div class="vignete-layer"></div>
+		</div>
+		<style>
+			#main-diagonal-text {
+				left: -50%;
+				position: absolute;
+				z-index: -1;
+				transform: rotateZ(10deg) translateX(-20%) translateY(25vh);
+				letter-spacing: 5px;
+				font-weight: 100;
+				font-size: 24px;
+				animation: text_rotation 120s linear 0s infinite forwards;
+			}
+
+			#welcome-box {
+				margin-top: 0px;
+				position: fixed;
+				top: 0;
+				z-index: -10;
+			}
+
+			#first-section {
+				margin-top: 50px;
+				height: calc(100vh - 50px);
+				margin-bottom: 10px;
+			}
+
+			.scrolldown {
+				width: 1px;
+				height: 60px;
+				position: absolute;
+				bottom: 40px;
+				left: 0;
+				right: 0;
+				margin: 0 auto;
+				overflow: hidden;
+				background: linear-gradient(
+					to bottom,
+					white 50%,
+					rgba(255, 255, 255, 0) 50%
+				);
+				background-position: 0 -100px;
+				background-size: 100% 200%;
+				animation: scrolldown 5s cubic-bezier(0.76, 0, 0.3, 1) forwards
+					infinite;
+			}
+
+			/* [data-defer="hidden"] * {
+				display: none !important;
+			} */
+
+			span#intro-alabama {
+				animation: intro_text 3s cubic-bezier(0.76, 0, 0.3, 1) 0s 1
+					forwards;
+				letter-spacing: 0.1vw;
+				font-size: 9vw;
+				font-weight: bold;
+			}
+
+			span#intro-solutions {
+				animation: intro_text 3s cubic-bezier(0.76, 0, 0.3, 1) 0.2s 1
+					forwards;
+				letter-spacing: 2.2vw;
+				font-size: 5vw;
+				font-weight: 300;
+			}
+
+			span#intro-future {
+				animation: intro_text 3s cubic-bezier(0.76, 0, 0.3, 1) 0.2s 1
+					forwards;
+				letter-spacing: 1.8vw;
+				font-size: 5vw;
+				font-weight: 300;
+			}
+
+			
+
+			.white-to-black-dividers {
+				height: 200px;
+				width: 150%;
+				position: relative;
+				z-index: -1;
+				background: white;
+				transform: rotate(2deg);
+				margin-top: -30vh;
+				margin-inline: auto;
+				margin-bottom: 15vh;
+				margin-left: -10%;
+				border-bottom-right-radius: 20%;
+				border-bottom-left-radius: 0%;
+				animation: wave-radius 5s ease-in-out infinite alternate;
+			}
+			#wtbd-1 {
+				box-shadow: 0 0 20px black;
+				transform: rotate(2deg) translateX(-20%);
+			}
+			#wtbd-2 {
+				/* opacity: 0.5; */
+				z-index: -2;
+				margin-top: -45vh;
+				transform: rotate(-2deg) translateX(-10%);
+				border-bottom-left-radius: 60%;
+				box-shadow: 0 0 20px black;
+				background: rgb(167, 167, 167);
+			}
+			#wtbd-3 {
+				opacity: 1;
+				z-index: -3;
+				margin-top: -40vh;
+				box-shadow: 0 0 20px black;
+				transform: none;
+				border-bottom-left-radius: 40%;
+				border-bottom-right-radius: 40%;
+				transform: translateX(-18%);
+				width: 180%;
+				background: rgb(60, 60, 60);
+			}
+			#wtbd-a-1 {
+				margin-top: -18vh;
+				z-index: -5;
+				box-shadow: 0 0 20px black;
+				animation: none;
+				transform: none;
+			}
+			#wtbd-a-2 {
+				z-index: -6;
+				margin-top: -40vh;
+				transform: none;
+				box-shadow: 0 0 20px black;
+				animation: none;
+				background: rgb(167, 167, 167);
+			}
+			#wtbd-a-3 {
+				z-index: -7;
+				margin-top: -40vh;
+				box-shadow: 0 0 20px black;
+				transform: none;
+				animation: none;
+				background: rgb(60, 60, 60);
+			}
+
+			@keyframes wave-radius {
+				0% {
+					border-bottom-right-radius: 30%;
+					border-bottom-left-radius: 30%;
+				}
+				100% {
+					border-bottom-right-radius: 50%;
+					border-bottom-left-radius: 50%;
+				}
+				/* 100%{
+					border-bottom-right-radius: 30%;
+					border-bottom-left-radius: 30%;
+				} */
+			}
+		</style>
+		
+	</body>
+</html>

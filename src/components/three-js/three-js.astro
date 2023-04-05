@@ -1,0 +1,248 @@
+---
+---
+
+<canvas id="canvas"></canvas>
+
+<style></style>
+
+<script>
+  import * as THREE from "three";
+  import { DirectionalLight, Vector3 } from "three";
+  import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+  import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
+  import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
+  import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
+
+  // Client properties
+  let canvasSize = { width: window.innerWidth, height: window.innerHeight };
+  const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+
+  // Three properties
+  let camera!: THREE.PerspectiveCamera;
+  let renderer!: THREE.WebGLRenderer;
+  let scene!: THREE.Scene;
+  let mainLight!: DirectionalLight;
+
+  let renderScene!: RenderPass;
+  let composer!: EffectComposer;
+
+  let bloomPass!: UnrealBloomPass;
+
+  // PARTICLES
+  let particlesCount = 400;
+  let positions = new Float32Array(particlesCount * 5);
+  let particlesGeometry = new THREE.BufferGeometry();
+  let particlesMaterial = new THREE.PointsMaterial({
+    color: "#ffeded",
+    sizeAttenuation: true,
+    size: 0.1,
+  });
+  let particles = new THREE.Points(particlesGeometry, particlesMaterial);
+
+  // FIRST OF ALL: CREATE A SCENE
+  let createScene = () => {
+    // Scene
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0, 0, 0);
+    // Init and Add the Camera
+    scene.add(camera);
+    let aspectRatio = canvasSize.width / canvasSize.height;
+    camera = new THREE.PerspectiveCamera(35, aspectRatio, 1, 1000);
+    camera["position"].z = 35;
+    camera["rotation"].y = 0.3;
+  };
+
+  // LIGHT
+  let createLight = () => {
+    mainLight = new DirectionalLight(0xb48be9, 0);
+    mainLight["position"].set(0, 40, -80);
+    scene.add(mainLight);
+    let draw = () => {
+      setTimeout(() => {
+        let rqa_light = requestAnimationFrame(draw);
+        if (mainLight.intensity >= 1) {
+          window.cancelAnimationFrame(rqa_light);
+        }
+        mainLight.intensity += 0.01;
+      }, 1000 / 40 /* FPS */);
+    };
+    draw();
+  };
+
+  // RENDER CONTENT AND START ANIMATION LOOP
+  let startRenderingLoop = () => {
+    // Use canvas element in client template
+    renderer = new THREE.WebGLRenderer({
+      canvas: canvas,
+      antialias: true,
+      alpha: true,
+    });
+    renderer.setPixelRatio(devicePixelRatio);
+    renderer.setSize(canvasSize.width, canvasSize.height);
+
+    // Setup "Bloom" Effect
+    renderScene = new RenderPass(scene, camera);
+    composer = new EffectComposer(renderer);
+    composer.addPass(renderScene);
+    bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(canvasSize.width, canvasSize.height),
+      0.5,
+      1,
+      0.3
+    );
+    composer.addPass(bloomPass);
+
+    // Trigger Loop Animation
+    (function render() {
+      requestAnimationFrame(render);
+      composer.render();
+    })();
+  };
+
+  // let fakeLoad = () => {};
+  let count = 0;
+  let loading = setInterval(() => {
+    document.querySelector("#three-loader-status")!.innerHTML = count + "%";
+    if (count <= 100) {
+      count = count + 10;
+    }
+  }, 100);
+
+  let loadGTLF = () => {
+    const loader = new GLTFLoader();
+    const loadModel = (gltf: GLTF, position?: Vector3) => {
+      for (let i = 0; i < gltf.scene.children.length; i++) {
+        const model = gltf.scene.children[i];
+        if (gltf.scene.children && gltf.scene.children.length) {
+          // LAPTOP & SCREEN CONFIG.
+          if (model.name == "Laptop") {
+            let bottomRotation = 1.84;
+            let screen = gltf.scene.getObjectByName("Screen");
+            let display = gltf.scene.getObjectByName("Display_Body");
+            let blackFrame = gltf.scene.getObjectByName("Black_Frame");
+            screen?.rotation.set(bottomRotation, 0, 0);
+            display?.rotation.set(bottomRotation, 0, 0);
+            blackFrame?.rotation.set(bottomRotation, 0, 0);
+            model.position.copy(new Vector3(0, -i / 2, 0));
+            model.scale.set(0.02, 0.02, 0.02);
+            scene.add(model);
+            // SETS SCROLL ANIMATION
+            setScrollAnimation({ screen, display, blackFrame }, bottomRotation);
+          }
+
+          // ROCKS CONFIG
+          if (
+            gltf.scene.children[i] &&
+            gltf.scene.children[i].children &&
+            gltf.scene.children[i].children.length
+          ) {
+            gltf.scene.children[i].children?.forEach((c) => {
+              let nest = c;
+              switch (nest.name) {
+                case "Rock_bottom":
+                  nest.rotation.set(0, 10, 50);
+                  nest.position.copy(new Vector3(0, -3.5, 4));
+                  nest.scale.set(0.2, 0.2, 0.2);
+                  scene.add(nest);
+
+                  let rock_2 = nest.clone();
+                  rock_2.rotation.set(0, 1, 0.5);
+                  rock_2.position.copy(new Vector3(2, -5, -7));
+                  rock_2.scale.set(0.5, 0.5, 0.5);
+                  scene.add(rock_2);
+                  break;
+                default:
+                  break;
+              }
+            });
+          }
+        }
+      }
+    };
+    loader.load(
+      "/3D/gltf/Alabama_s.gltf",
+      (gltf) => loadModel(gltf),
+      (xhr) => {
+        if ((xhr.loaded / xhr.total) * 100 == 100 || count >= 100) {
+          (
+            document.querySelector("#three-loader-overlay") as HTMLElement
+          ).style.transform = "translateY(-100%)";
+          clearInterval(loading);
+        }
+      }, // ADD LOADER!!!
+      (err) => console.log(err)
+    );
+  };
+
+  let setScrollAnimation = (
+    { screen, display, blackFrame }: any,
+    bottomRotation: number
+  ) => {
+    let recalculate = () => {
+      let multy = 200;
+      if (screen && screen.rotation.x >= 0 && window.scrollY / multy <= 1.8) {
+        screen?.rotation.set(bottomRotation - window.scrollY / multy, 0, 0);
+        display?.rotation.set(bottomRotation - window.scrollY / multy, 0, 0);
+        blackFrame?.rotation.set(bottomRotation - window.scrollY / multy, 0, 0);
+        // this.camera.position.x = (window.scrollY / multy) * 2;
+        // this.camera.rotation.y = (window.scrollY / multy) / 5;
+        scene["rotation"].y = -(window.scrollY / multy / 5);
+      } else {
+        // Max thresold or top value
+        screen?.rotation.set(0, 0, 0);
+        display?.rotation.set(0, 0, 0);
+        blackFrame?.rotation.set(0, 0, 0);
+      }
+
+      if (window.scrollY / multy > 1.8) {
+        // Top values (won't exceed)
+        camera["position"].y =
+          -(window.scrollY / multy - 1.8) * (window.innerHeight / multy);
+        scene["rotation"].y = -0.356;
+      } else {
+        camera["position"].y = 0;
+      }
+      composer.render();
+    };
+    window.addEventListener("scroll", (e) => recalculate()); // CLOSED => TO => OPEN
+    setTimeout(() => recalculate()); // Run after first load.
+    // console.clear();
+
+  };
+
+  let setParticles = () => scene.add(particles);
+
+  function deferInit() {
+    createScene();
+    startRenderingLoop();
+    createLight();
+    loadGTLF();
+    setParticles();
+  }
+
+  // #################### INIT CALL AFTER DEFINITIONS...
+  function init() {
+    for (let i = 0; i < particlesCount; i++) {
+      positions[i * 3 + 0] = (Math.random() - 0.5) * 1000;
+      positions[i * 3 + 1] = Math.random() * 10;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 100;
+    }
+    setTimeout(() =>
+      particlesGeometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(positions, 3)
+      )
+    ); // Run after for loop ends.
+    setTimeout(deferInit, 1000);
+  }
+
+  init();
+</script>
+<style>
+  :host {
+    display: flex;
+  }
+  #canvas {
+    border-radius: 0px;
+  }
+</style>

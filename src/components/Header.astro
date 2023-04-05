@@ -1,0 +1,107 @@
+---
+import HeaderLink from "./HeaderLink.astro";
+import { SITE_TITLE } from "../consts";
+---
+
+<header>
+	<!-- <h2>
+		{SITE_TITLE}
+	</h2> -->
+	<!-- <nav>
+		<HeaderLink href="/">Home</HeaderLink>
+		<HeaderLink href="/blog">Blog</HeaderLink>
+		<HeaderLink href="/about">About</HeaderLink>
+		<HeaderLink href="https://twitter.com/astrodotbuild" target="_blank">
+			Twitter
+		</HeaderLink>
+		<HeaderLink href="https://github.com/withastro/astro" target="_blank">
+			GitHub
+		</HeaderLink>
+	</nav> -->
+	<nav class="w-100 px-4 as-menu d-flex justify-content-between">
+		<a href="/">
+			<img src="/images/as_logo_a.png" class="pointer" alt="" />
+		</a>
+		<div class="d-flex flex-row align-items-center gap-3 glow-text">
+			<div class="d-flex col-auto">
+				<HeaderLink href="/">
+					<span class="pointer as-link d-flex justify-content-center"
+						>Home<div class="as-link-dot"></div></span>
+				</HeaderLink>
+			</div>
+			<div class="d-flex col-auto">
+				<HeaderLink href="/#case-studies">
+					<span class="pointer as-link d-flex justify-content-center"
+						>Case Studies<div class="as-link-dot"></div></span>
+				</HeaderLink>
+			</div>
+			<div class="d-flex col-auto">
+				<HeaderLink href="/blog">
+
+				<span class="pointer as-link d-flex justify-content-center"
+					>Blog<div class="as-link-dot"></div></span
+				></HeaderLink>
+			</div>
+			<div class="d-flex col-auto">
+				<span class="pointer as-link d-flex justify-content-center"
+					>Careers<div class="as-link-dot"></div></span
+				>
+			</div>
+			<!-- <div class="d-flex col-auto">
+				<span class="pointer as-link d-flex justify-content-center"
+					>News<div class="as-link-dot"></div></span
+				>
+			</div> -->
+			<button class="btn btn-primary"
+				>Get In Touch
+				<!-- <div class="hidden-icon"><i-feather name="send" class="icon-sm"></i-feather></div> -->
+			</button>
+		</div>
+	</nav>
+</header>
+<style>
+	header {
+		position: fixed;
+		display: inline-flex;
+		z-index: 9999;
+		width: 100%;
+	}
+
+	.as-menu {
+		height: 60px;
+		padding: 10px;
+		padding-inline: 20px;
+		align-items: center;
+	}
+	.as-menu img {
+		height: clamp(20px, 3.5vw, 30px);
+		filter: drop-shadow(0 0 10px var(--as-pri));
+	}
+
+	.as-link {
+		margin-top: 0px;
+		transition: 0.3s !important;
+	}
+	.as-link:hover {
+		margin-top: 5px;
+		transition: 0.1s !important;
+
+		text-shadow: 0 0 10px white;
+	}
+	.as-link:hover .as-link-dot {
+		background-color: white !important;
+		transition: 0.1s !important;
+		box-shadow: 0 0 15px 2px white !important;
+	}
+
+	.as-link-dot {
+		border-radius: 100%;
+		height: 5px;
+		width: 5px;
+		background-color: transparent;
+		position: absolute;
+		transform: translateY(-5px);
+		transition: 0.6s;
+		box-shadow: 0 0 10px transparent;
+	}
+</style>

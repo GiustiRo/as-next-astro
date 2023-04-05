@@ -1,0 +1,23 @@
+{
+  "name": "as-astro",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^0.18.2",
+    "@astrojs/rss": "^2.3.2",
+    "@astrojs/sitemap": "^1.2.1",
+    "astro": "^2.1.9",
+    "firebase": "^9.19.1",
+    "gsap": "^3.11.5",
+    "lottie-web": "^5.10.2",
+    "scrollbooster": "^3.0.2",
+    "three": "^0.151.3"
+  }
+}

@@ -1,0 +1,253 @@
+---
+---
+
+<div
+    id="section-card-one"
+    class="section-content intro-text d-flex flex-row col-12 flex-nowrap overflow-hidden container-hz-totalW h-100"
+>
+    <div class="section-card d-flex flex-row w-100" style="z-index: 1;"></div>
+
+    <div
+        class="text-content-block col-5 pt-0 px-5 d-flex justify-content-center gap-3 flex-column"
+    >
+        <span class="text-muted divider-as">
+            {
+                [">", ">", ">", ">", ">", ">", ">", ">", ">", ">"].map(
+                    (sep, i_f) => {
+                        return (
+                            <span style={"--ts-value: " + -(i_f * 20) + "deg"}>
+                                {sep}
+                            </span>
+                        );
+                    }
+                )
+            }
+        </span>
+        <h2 class="section-header m-0">#WeKnow<br />TheRoad</h2>
+        <span class="text-muted divider-as">
+            {
+                [">", ">", ">", ">", ">", ">", ">", ">", ">", ">"].map(
+                    (sep, i_f) => {
+                        return (
+                            <span style={"--ts-value: " + -(i_f * 20) + "deg"}>
+                                {sep}
+                            </span>
+                        );
+                    }
+                )
+            }
+        </span>
+        <!-- <p class="as-font-alt">
+            We offer our clients a set of services to meet their <b
+                >diverse and important business needs</b
+            >.
+        </p>
+        <p class="as-font-alt">
+            Our team’s knowledge, experience, and expertise are tailored to
+            translate to <b
+                >concrete value and peace of mind at our one-stop solution
+                garages.</b
+            >
+        </p> -->
+        <!-- <p class="as-font-alt">
+            We are your digital transformation partners. In a challenging and
+            everchanging world, we offer secure, cost effective and reliable
+            custom software solutions at scale.
+        </p> -->
+    </div>
+    <div
+        class="d-flex justify-content-start align-items-center pt-5"
+        style="position:relative; z-index: -1; gap:5vw; margin-left: 10vw;"
+    >
+        <div
+            class="mx-2 description panel blue d-flex flex-column justify-content-between align-items-start w-75 bg-white text-left p-4 shadow-lg"
+        >
+            <h1 class="fs-h2 fw-bold text-black w-100">
+                Cross-platform Development
+            </h1>
+            <p class="text-black as-font-alt">
+                We design and develop high- performing and robust mobile and web
+                applications to meet your business needs. Our team has
+                engineered and delivered quality- assured solutions in all major
+                industries.
+            </p>
+            <div class="lottie" id="lottie-cross-platform"></div>
+            <!-- <iframe src="https://embed.lottiefiles.com/animation/59621"
+            ></iframe> -->
+        </div>
+        <div
+            class="mx-2 description panel blue d-flex flex-column justify-content-between align-items-start w-75 bg-white text-left p-4 shadow-lg"
+        >
+            <h1 class="fs-h2 fw-bold text-black w-100">
+                Emerging Technologies
+            </h1>
+            <p class="text-black as-font-alt">
+                Partner with us to create an MVP for your ideas in areas like
+                AR, VR, AI, Blockchain, and IoT. From research and development
+                to project delivery, our emerging technologies solution garage
+                will help you create a proof of concept for your innovative
+                vision at a fraction of the cost.
+            </p>
+            <div class="lottie" id="lottie-emerging-technologies"></div>
+
+            <!-- <iframe src="https://embed.lottiefiles.com/animation/94007"
+            ></iframe> -->
+        </div>
+        <div
+            class="mx-2 description panel blue d-flex flex-column justify-content-between align-items-start w-75 bg-white text-left p-4"
+        >
+            <h1 class="fs-h2 fw-bold text-black w-100">Staff Augmentation</h1>
+            <p class="text-black as-font-alt">
+                With our staff augmentation garage, we serve as an extended arm
+                of your in-house engineering team. Flexible, nimble,
+                cost-effective, and powerful, our team provides extended
+                expertise that is crucial to your business.
+            </p>
+            <div class="lottie" id="lottie-staff-augmentation"></div>
+
+            <!-- <iframe src="https://embed.lottiefiles.com/animation/62900"
+            ></iframe> -->
+        </div>
+    </div>
+</div>
+<style>
+    .text-content-block p {
+        font-size: 17px;
+        line-height: 28px;
+        margin: 0;
+    }
+    .section-header {
+        line-height: 6vw;
+    }
+    .section-card {
+        transform: translateX(-50%);
+        height: 100vh;
+        background-color: rgb(255, 255, 255);
+        position: absolute;
+        transition: 0.3s;
+        box-shadow: -5px -100px 70px -15px black;
+        /* box-shadow: -5px 0 70px -15px black; */
+        /* border-radius: 5px; */
+        border-top-right-radius: 5px;
+    }
+
+    .section-content .text-content-block {
+        font-size: 18px;
+        mix-blend-mode: difference;
+        position: relative;
+        z-index: 2;
+    }
+
+    .section-content span {
+        text-shadow: 0 0 20px transparent !important;
+    }
+
+    .section-content .section-header {
+        letter-spacing: 0.1vw;
+        font-size: 6vw;
+        font-weight: bold;
+    }
+
+    .divider-as {
+        font-size: 20px;
+        letter-spacing: 2vw;
+    }
+    .divider-as span {
+        display: inline-flex;
+        transform: rotateX(var(--ts-value));
+        animation: rotate_divider 120s ease 0s infinite forwards;
+    }
+
+    .panel {
+        min-height: 65vh;
+        max-height: 65vh;
+        width: clamp(30vw, 40vw, 30vw) !important;
+        background: linear-gradient(36deg, #948995, white, white);
+        border-radius: 5px;
+        padding-bottom: 50px !important;
+    }
+    .panel iframe,
+    .panel .lottie {
+        mix-blend-mode: multiply;
+        max-height: 25vh;
+        width: 100%;
+        height: 25vh;
+    }
+</style>
+<script>
+    import Lottie from "lottie-web";
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    let hzScrollSection = () => {
+        let sections: HTMLElement[] = gsap.utils.toArray(".panel");
+        let totalWidthClient: number = window.innerHeight * sections.length;
+
+        gsap.to(sections, {
+            xPercent: -130 * (sections.length - 1),
+            ease: "none",
+            scrollTrigger: {
+                anticipatePin: 1,
+                trigger: ".container-hz",
+                pin: true,
+                scrub: 1,
+                snap: 0,
+                end: () => totalWidthClient,
+                pinType: "fixed", // improved flickering.
+                // snap: 1 / (sections.length - 1),
+                // markers: true
+            },
+        });
+        window.addEventListener("resize", () => ScrollTrigger.refresh());
+    };
+
+    // hzScrollSection();
+
+    let loadLotties = () => {
+        Lottie.loadAnimation({
+            container: document.getElementById(
+                "lottie-cross-platform"
+            ) as HTMLElement, // the dom element that will contain the animation
+            renderer: "svg",
+            loop: true,
+            autoplay: true,
+            path: "lotties/cross-platform.json", // the path to the animation json
+        });
+        Lottie.loadAnimation({
+            container: document.getElementById(
+                "lottie-emerging-technologies"
+            ) as HTMLElement, // the dom element that will contain the animation
+            renderer: "svg",
+            loop: true,
+            autoplay: true,
+            path: "lotties/emerging-technologies.json", // the path to the animation json
+        }).play();
+        Lottie.loadAnimation({
+            container: document.getElementById(
+                "lottie-staff-augmentation"
+            ) as HTMLElement, // the dom element that will contain the animation
+            renderer: "svg",
+            loop: true,
+            autoplay: true,
+            path: "lotties/staff-augmentation.json", // the path to the animation json
+        });
+    };
+    // loadLotties();
+
+    const observer = new IntersectionObserver(
+        async (entries) => {
+            for (const entry of entries) {
+                if (entry.isIntersecting && entry.target) {
+                    hzScrollSection();
+                    loadLotties();
+
+                    observer.unobserve(entry.target);
+                }
+            }
+        },
+        { threshold: 0, rootMargin: "0px 0px 300px 0px" }
+    );
+    const box = document.querySelector("#section-card-one") as HTMLElement;
+    observer.observe(box);
+</script>
