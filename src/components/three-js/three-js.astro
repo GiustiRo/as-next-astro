@@ -8,7 +8,8 @@
 <script>
   import * as THREE from "three";
   import { DirectionalLight, Vector3 } from "three";
-  import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+  import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+  import { DRACOLoader } from "three/examples/jsm/loaders/DracoLoader";
   import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
   import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
   import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
@@ -54,7 +55,6 @@
     camera["position"].z = 35;
     camera["rotation"].y = 0.3;
 
-    
     // const axesHelper = new THREE.AxesHelper(5);scene.add(axesHelper);// DEBUG
   };
 
@@ -107,73 +107,77 @@
 
   // let fakeLoad = () => {};
   let count = 0;
-  let loading = setInterval(() => {
+  let loadingFake = setInterval(() => {
     document.querySelector("#three-loader-status")!.innerHTML = count + "%";
     if (count <= 100) {
       count = count + 10;
+    } else {
+      clearInterval(loadingFake);
     }
   }, 100);
 
   let loadGTLF = () => {
     const loader = new GLTFLoader();
-    const loadModel = (gltf: GLTF, position?: Vector3) => {
-      for (let i = 0; i < gltf.scene.children.length; i++) {
-        const model = gltf.scene.children[i];
-        if (gltf.scene.children && gltf.scene.children.length) {
-          // LAPTOP & SCREEN CONFIG.
-          if (model.name == "Laptop") {
-            let bottomRotation = 1.84;
-            let screen = gltf.scene.getObjectByName("Screen");
-            let display = gltf.scene.getObjectByName("Display_Body");
-            let blackFrame = gltf.scene.getObjectByName("Black_Frame");
-            screen?.rotation.set(bottomRotation, 0, 0);
-            display?.rotation.set(bottomRotation, 0, 0);
-            blackFrame?.rotation.set(bottomRotation, 0, 0);
-            model.position.copy(new Vector3(0, -i / 2, 0));
-            model.scale.set(0.02, 0.02, 0.02);
-            scene.add(model);
-            // SETS SCROLL ANIMATION
-            setScrollAnimation({ screen, display, blackFrame }, bottomRotation);
-          }
+    const dLoader = new DRACOLoader();
+    dLoader.setDecoderPath("/node_modules/three/examples/jsm/libs/draco/");
+    dLoader.preload();
+    dLoader.setDecoderConfig({ type: "js" });
+    loader.setDRACOLoader(dLoader);
 
-          // ROCKS CONFIG
-          if (
-            gltf.scene.children[i] &&
-            gltf.scene.children[i].children &&
-            gltf.scene.children[i].children.length
-          ) {
-            gltf.scene.children[i].children?.forEach((c) => {
-              let nest = c;
-              switch (nest.name) {
-                case "Rock_bottom":
-                  nest.rotation.set(0, 10, 50);
-                  nest.position.copy(new Vector3(0, -3.5, 4));
-                  nest.scale.set(0.2, 0.2, 0.2);
-                  scene.add(nest);
-
-                  let rock_2 = nest.clone();
-                  rock_2.rotation.set(0, 1, 0.5);
-                  rock_2.position.copy(new Vector3(2, -5, -7));
-                  rock_2.scale.set(0.5, 0.5, 0.5);
-                  scene.add(rock_2);
-                  break;
-                default:
-                  break;
-              }
-            });
-          }
+    const loadModel = (gltf, position?: Vector3) => {
+      const model = gltf.scene.getObjectByName("Laptop");
+      console.warn(model);
+      if (gltf.scene.children && gltf.scene.children.length) {
+        // LAPTOP & SCREEN CONFIG.
+        if (model.name == "Laptop") {
+          let bottomRotation = 1.84;
+          let screen = gltf.scene.getObjectByName("Screen");
+          let display = gltf.scene.getObjectByName("Display_Body");
+          let blackFrame = gltf.scene.getObjectByName("Black_Frame");
+          screen?.rotation.set(bottomRotation, 0, 0);
+          display?.rotation.set(bottomRotation, 0, 0);
+          blackFrame?.rotation.set(bottomRotation, 0, 0);
+          model.position.copy(new Vector3(0, 0, 0));
+          model.scale.set(0.02, 0.02, 0.02);
+          scene.add(model);
+          // SETS SCROLL ANIMATION
+          setScrollAnimation({ screen, display, blackFrame }, bottomRotation);
         }
+        let rockBottom = gltf.scene.getObjectByName("Rock_bottom");
+        rockBottom.rotation.set(0, 10, 50);
+        rockBottom.position.copy(new Vector3(0, -3.5, 4));
+        rockBottom.scale.set(0.2, 0.2, 0.2);
+        scene.add(rockBottom);
+
+        let rock_2 = rockBottom.clone();
+        rock_2.rotation.set(0, 1, 0.5);
+        rock_2.position.copy(new Vector3(2, -5, -7));
+        rock_2.scale.set(0.5, 0.5, 0.5);
+        scene.add(rock_2);
       }
     };
     loader.load(
-      "/3D/gltf/Alabama_s.gltf",
+      // "/3D/gltf/Alabama_s.gltf",
+      "/3D/gltf_out/Alabama_s.glb",
       (gltf) => loadModel(gltf),
       (xhr) => {
-        if ((xhr.loaded / xhr.total) * 100 == 100 || count >= 100) {
+        console.warn(xhr);
+        if (
+          (xhr.loaded / xhr.total) * 100 ==
+          100
+          // ||
+          // count >= 100
+        ) {
           (
             document.querySelector("#three-loader-overlay") as HTMLElement
           ).style.transform = "translateY(-100%)";
-          clearInterval(loading);
+          clearInterval(loadingFake);
+          count = 100;
+          // Release Draco Memory
+          dLoader.dispose();
+          // Add Ligth to scene and render particles.
+          createLight();
+          setParticles();
         }
       }, // ADD LOADER!!!
       (err) => console.log(err)
@@ -216,9 +220,8 @@
         // Footer Section
         // first set all to defaults
         // console.warn(window.innerHeight);
-        let amountSections = document.querySelectorAll('sections').length;
+        let amountSections = document.querySelectorAll("sections").length;
         let switchThres = window.innerHeight * amountSections - 500;
-      
       }
       composer.render();
     };
@@ -232,9 +235,7 @@
   function deferInit() {
     createScene();
     startRenderingLoop();
-    createLight();
     loadGTLF();
-    setParticles();
   }
 
   // #################### INIT CALL AFTER DEFINITIONS...
@@ -257,6 +258,7 @@
 
   // Set Scene behind
   import { setNewIntersection } from "../../utils/intersection";
+
   setNewIntersection(
     "#footer-thee-trigger",
     (entry) => {
