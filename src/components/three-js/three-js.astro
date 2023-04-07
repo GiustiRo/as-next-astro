@@ -130,7 +130,7 @@
       if (gltf.scene.children && gltf.scene.children.length) {
         // LAPTOP & SCREEN CONFIG.
         if (model.name == "Laptop") {
-          let bottomRotation = 1.84;
+          let bottomRotation = 1.86;
           let screen = gltf.scene.getObjectByName("Screen");
           let display = gltf.scene.getObjectByName("Display_Body");
           let blackFrame = gltf.scene.getObjectByName("Black_Frame");
@@ -158,7 +158,7 @@
     };
     loader.load(
       // "/3D/gltf/Alabama_s.gltf",
-      "/3D/gltf_out/Alabama_s.glb",
+      "/3D/gltf_out/Alabama_s2.glb",
       (gltf) => loadModel(gltf),
       (xhr) => {
         console.warn(xhr);
