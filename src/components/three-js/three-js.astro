@@ -119,7 +119,7 @@
   let loadGTLF = () => {
     const loader = new GLTFLoader();
     const dLoader = new DRACOLoader();
-    dLoader.setDecoderPath("/node_modules/three/examples/jsm/libs/draco/");
+    dLoader.setDecoderPath("/draco/");
     dLoader.preload();
     dLoader.setDecoderConfig({ type: "js" });
     loader.setDRACOLoader(dLoader);
