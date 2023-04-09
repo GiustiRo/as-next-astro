@@ -301,20 +301,19 @@ const showGsap = false;
 				background: rgb(60, 60, 60);
 			}
 
-			@keyframes wave-radius {
-				0% {
-					border-bottom-right-radius: 30%;
-					border-bottom-left-radius: 30%;
-				}
-				100% {
-					border-bottom-right-radius: 50%;
-					border-bottom-left-radius: 50%;
-				}
-				/* 100%{
-					border-bottom-right-radius: 30%;
-					border-bottom-left-radius: 30%;
-				} */
-			}
+			
 		</style>
+		<script>
+			let count = 0;
+			let loadingFake = setInterval(() => {
+				document.querySelector("#three-loader-status")!.innerHTML =
+					(count <= 100 ? count : 100) + "%";
+				if (count <= 100) {
+					count = count + 10;
+				} else {
+					clearInterval(loadingFake);
+				}
+			}, 20);
+		</script>
 	</body>
 </html>

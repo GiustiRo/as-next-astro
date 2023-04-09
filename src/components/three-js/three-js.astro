@@ -19,9 +19,9 @@
   const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 
   // Three properties
-  let camera!: THREE.PerspectiveCamera;
   let renderer!: THREE.WebGLRenderer;
   let scene!: THREE.Scene;
+  let camera!: any;//THREE.PerspectiveCamera;
   let mainLight!: DirectionalLight;
 
   let renderScene!: RenderPass;
@@ -49,8 +49,9 @@
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0, 0, 0);
     // Init and Add the Camera
-    scene.add(camera);
     let aspectRatio = canvasSize.width / canvasSize.height;
+    camera = new THREE.PerspectiveCamera(35, aspectRatio, 1, 1000);
+    scene.add(camera);
     camera = new THREE.PerspectiveCamera(35, aspectRatio, 1, 1000);
     camera["position"].z = 35;
     camera["rotation"].y = 0.3;
@@ -106,15 +107,7 @@
   };
 
   // let fakeLoad = () => {};
-  let count = 0;
-  let loadingFake = setInterval(() => {
-    document.querySelector("#three-loader-status")!.innerHTML = count + "%";
-    if (count <= 100) {
-      count = count + 10;
-    } else {
-      clearInterval(loadingFake);
-    }
-  }, 100);
+
 
   let loadGTLF = () => {
     const loader = new GLTFLoader();
@@ -126,7 +119,6 @@
 
     const loadModel = (gltf, position?: Vector3) => {
       const model = gltf.scene.getObjectByName("Laptop");
-      console.warn(model);
       if (gltf.scene.children && gltf.scene.children.length) {
         // LAPTOP & SCREEN CONFIG.
         if (model.name == "Laptop") {
@@ -161,9 +153,8 @@
       "/3D/gltf_out/Alabama_s2.glb",
       (gltf) => loadModel(gltf),
       (xhr) => {
-        console.warn(xhr);
         if (
-          (xhr.loaded / xhr.total) * 100 ==
+          (xhr.loaded / xhr.total) * 100 >=
           100
           // ||
           // count >= 100
@@ -171,8 +162,8 @@
           (
             document.querySelector("#three-loader-overlay") as HTMLElement
           ).style.transform = "translateY(-100%)";
-          clearInterval(loadingFake);
-          count = 100;
+          // clearInterval(loadingFake);
+          // count = 100;
           // Release Draco Memory
           dLoader.dispose();
           // Add Ligth to scene and render particles.
@@ -251,7 +242,7 @@
         new THREE.BufferAttribute(positions, 3)
       )
     ); // Run after for loop ends.
-    setTimeout(deferInit, 1000);
+    setTimeout(deferInit);
   }
 
   init();
