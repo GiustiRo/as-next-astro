@@ -33,7 +33,7 @@ body {
     --as-font: 'MuseoModerno', sans-serif;
     --as-font-alt: 'Montserrat', sans-serif;
 }body {
-    background: #000000;
+    background: #000000 !important;
     overflow-x: hidden;
 
 }#three-loader-overlay {
@@ -454,3 +454,44 @@ textarea {
 }.pb-2 {
    padding-bottom: 0.5rem !important;
 }#canvas:where(.astro-3LSGVND7){border-radius:0px}
+ul {
+   list-style-type: none;
+   padding: unset;
+}
+ul li {
+   display: flex;
+}
+ul li :global(time) {
+   flex: 0 0 130px;
+   font-style: italic;
+   color: #595959;
+}
+ul li a:visited {
+   color: #8e32dc;
+}
+.title {
+   font-size: 2em;
+   margin: 0.25em 0 0;
+}
+hr {
+   border-top: 1px solid #ddd;
+   margin: 1rem 0;
+}
+.last-updated-on {
+   font-style: italic;
+}
+img{
+   border-radius: 8px;
+}
+a{
+   text-decoration: none;
+}
+.p-5 {
+   padding: 3rem !important;
+ }
+ .mb-2 {
+  margin-bottom: 0.5rem !important;
+}
+.fs-3 {
+  font-size: calc(1.3rem + 0.6vw) !important;
+}
