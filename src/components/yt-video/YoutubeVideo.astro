@@ -83,9 +83,7 @@
     );
 
     import { gsap } from "gsap";
-    // import { ScrollTrigger } from "gsap/ScrollTrigger";
-    // gsap.registerPlugin(ScrollTrigger);
-    console.log(window.gsap);
+    // console.log(window.gsap);
     let hzScrollSection = () => {
         const timelineHeader = gsap.timeline({
             scrollTrigger: {
@@ -100,13 +98,6 @@
         });
 
         timelineHeader
-            // .from(
-            //     "#defer-youtube-container",
-            //     {
-            //         scale: 1,
-            //     },
-            //     "sameTime"
-            // )
             .to(
                 "#defer-youtube-container",
                 {
@@ -124,22 +115,6 @@
                 },
                 "after"
             );
-        // gsap.to(sections, {
-        //     xPercent: -130 * (sections.length - 1),
-        //     ease: "none",
-        //     scrollTrigger: {
-        //         anticipatePin: 1,
-        //         trigger: ".container-hz",
-        //         pin: true,
-        //         scrub: 1,
-        //         snap: 0,
-        //         end: () => totalWidthClient,
-        //         pinType: "fixed", // improved flickering.
-        //         // snap: 1 / (sections.length - 1),
-        //         // markers: true
-        //     },
-        // });
-        // window.addEventListener("resize", () => ScrollTrigger.refresh());
     };
     hzScrollSection();
 </script>

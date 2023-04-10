@@ -1,4 +1,23 @@
 ---
+const pathAssets = '/images/partners';
+const partners = [
+    {
+        name: 'Supermatch',
+        imageUrl: `${pathAssets}/partners-alabama-solutions-supermatch.png`
+    },
+    {
+        name: 'Banca de Quinielas de Montevideo',
+        imageUrl: `${pathAssets}/partners-alabama-solutions-la-banca-bqm.png`
+    },
+    {
+        name: 'Abitab',
+        imageUrl: `${pathAssets}/partners-alabama-solutions-abitab.png`
+    },
+    {
+        name: 'Cuti',
+        imageUrl: `${pathAssets}/cuti-alabama-solutions.png`
+    }
+];
 ---
 
 <div
@@ -34,7 +53,15 @@
             id="scrollboost"
             class="d-flex flex-row col-12 flex-nowrap gap-5 justify-content-start align-items-center partners-container"
         >
+        {partners.map(partner => (
             <img
+                src={partner.imageUrl}
+                class="col-4"
+                width="100%"
+                alt={partner.name}
+            />
+        ))}
+            <!-- <img
                 src="/images/partners/partners-alabama-solutions-supermatch.png"
                 class="col-4"
                 width="100%"
@@ -57,7 +84,7 @@
                 alt=""
                 class="col-4"
                 width="100%"
-            />
+            /> -->
         </div>
     </div>
     <div

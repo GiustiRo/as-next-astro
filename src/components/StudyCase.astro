@@ -1,224 +1,89 @@
 ---
+const fixedSCdata = {
+    pathAssets: "/images/case_studies",
+};
+const studyCases = [
+    {
+        bgUrl: `${fixedSCdata.pathAssets}/supermatch/cs_supermatch_blur_op70.png`,
+        imageUrl: `${fixedSCdata.pathAssets}/supermatch/supermatch-alabama-solutions-banner.webp`,
+        title: "Supermatch",
+        subtitle: "Online Sports Betting Platform",
+    },
+    {
+        bgUrl: `${fixedSCdata.pathAssets}/abitab/cs_abitab_blur_op70.png`,
+        imageUrl: `${fixedSCdata.pathAssets}/abitab/abitab-tickets-alabama-solutions_2.jpg`,
+        title: "Abitab Tickets",
+        subtitle: "Rebuilding the national's leading Event Ticketing Platform",
+    },
+    {
+        bgUrl: `${fixedSCdata.pathAssets}/bqm/bqm-devops-alabama-solutions_backdrop.png`,
+        imageUrl: `${fixedSCdata.pathAssets}/bqm/bqm-devops-alabama-solutions.webp`,
+        title: "BQM DevOps",
+        subtitle:
+            "DevOps Implementation for Uruguay's largest e-Gaming platform",
+    },
+];
 ---
-
-<div
-    class="col-12 px-0 h-100 d-flex justify-content-center flex-column align-items-center my-4"
->
-    <div class="d-flex flex-column w-100 intro-text mt-5" data-defer="hidden">
-        <!-- <div
-            class="intro-text-anim align-items-center justify-content-center"
-            style="height: fit-content;"
+{
+    studyCases.map((sc, i) => (
+        <section
+            id={sc.title}
+            style={
+                "background: url('" +
+                sc.bgUrl +
+                "') no-repeat; background-size: cover;"
+            }
+            class="main-sections d-flex text-left justify-content-start px-0 align-items-start position-relative set_study_case_interact mt-5"
         >
-            <h1
-                class="as-font mt-4 mb-0 text-center"
-                style="animation-delay: .2s !important; font-size: 9vw;
-								"
-            >
-                CASE STUDIES
-            </h1>
-        </div> -->
-        <!-- <div
-            class="intro-text-anim align-items-center justify-content-center text-dark"
-            style="animation-delay: .3s; height: 9vh;"
-        >
-            <h2
-                style="font-family: monospace; text-transform:none"
-                class="text-dark m-0"
-            >
-                Some of the awards we have won
-            </h2>
-        </div> -->
-    </div>
-</div>
-<!-- CASE STUDIES #################################################################################################### -->
-<section
-    id="StudyCaseSM"
-    style="background: url('/images/case_studies/supermatch/cs_supermatch_blur_op70.png') no-repeat; background-size: cover;"
-    class="main-sections d-flex text-left justify-content-start px-0 align-items-start position-relative set_study_case_interact mt-5"
->
-    <div
-        class="case-studies w-100 h-100 d-flex justify-content-center align-items-center"
-    >
-        <div
-            class="case-studies-clip w-100 h-100 cs-left"
-            id="clipPathSM"
-            style="clip-path: circle(48vh at 10% 50%); background: url('/images/case_studies/supermatch/supermatch-alabama-solutions-banner.webp') no-repeat;"
-        >
-        </div>
-        <div
-            data-defer="hidden"
-            class="case-studies-content w-100 h-100 d-flex flex-column justify-content-center align-items-center"
-        >
-            <div class="d-flex flex-column col-10 text-end intro-text">
+            <div class="case-studies w-100 h-100 d-flex justify-content-center align-items-center">
                 <div
-                    class="intro-text-anim align-items-center justify-content-end"
-                    style="height: 7vh;"
-                >
-                    <span
-                        style="font-family: monospace; animation-delay: 0s !important"
-                        >Case·Studies·01</span
-                    >
-                </div>
+                    class="case-studies-clip w-100 h-100 cs-left"
+                    style={"clip-path: circle(48vh at " + (i % 2 == 0? '10% 50%' : '90% 50%')  + "); background: url('" + sc.imageUrl +"') no-repeat;"}
+                />
                 <div
-                    class="intro-text-anim align-items-center justify-content-end"
+                    data-defer="hidden"
+                    class="case-studies-content w-100 h-100 d-flex flex-column justify-content-center align-items-center"
                 >
-                    <h1 class="as-font" style="animation-delay: .1s !important">
-                        Supermatch
-                    </h1>
-                </div>
-                <div
-                    class="intro-text-anim align-items-center justify-content-end"
-                    style="height: fit-content;"
-                >
-                    <h2
-                        class="as-font-alt mb-4"
-                        style="font-family: monospace; animation-delay: .2s !important"
-                    >
-                        Online Sports Betting Platform
-                    </h2>
-                </div>
-                <div
-                    class="cs-footer col-12 d-flex flex-row justify-content-end mt-2"
-                >
-                    <button class="btn btn-primary btn_case_study_interaction"
-                        >Explore This Case
-                        <!-- <div class="hidden-icon">
-                            <i-feather name="arrow-down" class="icon-sm"
-                            ></i-feather>
-                        </div> -->
-                    </button>
+                    <div class="d-flex flex-column col-10 text-end intro-text">
+                        <div
+                            class={"intro-text-anim align-items-center " + (i % 2 == 0? 'justify-content-end' : 'justify-content-start')}
+                            style="height: 7vh;"
+                        >
+                            <span style="font-family: monospace; animation-delay: 0s !important">
+                                Case·Studies·0{i+1}
+                            </span>
+                        </div>
+                        <div class={"intro-text-anim align-items-center " + (i % 2 == 0? 'justify-content-end' : 'justify-content-start')}>
+                            <h1
+                                class="as-font"
+                                style="animation-delay: .1s !important"
+                            >
+                                {sc.title}
+                            </h1>
+                        </div>
+                        <div
+                            class={"intro-text-anim align-items-center " + (i % 2 == 0? 'justify-content-end' : 'justify-content-start')}
+                            style="height: fit-content;"
+                        >
+                            <h2
+                                class="as-font-alt mb-4"
+                                style="font-family: monospace; animation-delay: .2s !important"
+                            >
+                                {sc.subtitle}
+                            </h2>
+                        </div>
+                        <div class={"cs-footer col-12 d-flex flex-row mt-2 " + (i % 2 == 0? 'justify-content-end' : 'justify-content-start')}>
+                            <button class="btn btn-primary btn_case_study_interaction">
+                                Explore This Case
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
+    ))
+};
 
-<section
-    style="background: url('/images/case_studies/abitab/cs_abitab_blur_op70.png') no-repeat; background-size: cover;"
-    class="main-sections d-flex text-left justify-content-start px-0 align-items-start position-relative set_study_case_interact"
->
-    <div
-        class="case-studies w-100 h-100 d-flex justify-content-center align-items-center"
-    >
-        <div
-            class="case-studies-clip w-100 h-100 cs-right"
-            id="clipPathAB"
-            style="clip-path: circle(48vh at 90% 50%); background: url('/images/case_studies/abitab/abitab-tickets-alabama-solutions_2.jpg') no-repeat;"
-        >
-        </div>
-        <div
-            data-defer="hidden"
-            class="case-studies-content w-100 h-100 d-flex flex-column justify-content-center align-items-center"
-        >
-            <div class="d-flex flex-column col-10 text-start intro-text">
-                <div
-                    class="intro-text-anim align-items-center justify-content-start"
-                    style="height: 7vh;"
-                >
-                    <span
-                        style="font-family: monospace; animation-delay: 0s !important"
-                        >Case·Studies·02</span
-                    >
-                </div>
-                <div
-                    class="intro-text-anim align-items-center justify-content-start"
-                >
-                    <h1 class="as-font" style="animation-delay: .1s !important">
-                        Abitab Tickets
-                    </h1>
-                </div>
-                <div
-                    class="intro-text-anim align-items-center justify-content-start"
-                    style="height: fit-content;"
-                >
-                    <h2
-                        class="as-font-alt mb-4"
-                        style="font-family: monospace; animation-delay: .2s !important"
-                    >
-                        Rebuilding the national's leading Event Ticketing
-                        Platform
-                    </h2>
-                </div>
-                <div
-                    class="cs-footer col-12 d-flex flex-row justify-content-start mt-2"
-                >
-                    <button class="btn btn-primary btn_case_study_interaction"
-                        >Explore This Case
-                        <!-- <div class="hidden-icon">
-                            <i-feather name="arrow-down" class="icon-sm"
-                            ></i-feather>
-                        </div> -->
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section
-    style="background: url('/images/case_studies/bqm/bqm-devops-alabama-solutions_backdrop.png') no-repeat; background-size: cover;"
-    class="main-sections d-flex text-left justify-content-start px-0 align-items-start position-relative set_study_case_interact"
->
-    <div
-        class="case-studies w-100 h-100 d-flex justify-content-center align-items-center"
-    >
-        <div
-            class="case-studies-clip w-100 h-100 cs-left"
-            id="clipPathDO"
-            style="clip-path: circle(48vh at 10% 50%); background: url('/images/case_studies/bqm/bqm-devops-alabama-solutions.webp') no-repeat;"
-        >
-        </div>
-        <div
-            data-defer="hidden"
-            class="case-studies-content w-100 h-100 d-flex flex-column justify-content-center align-items-center"
-        >
-            <div class="d-flex flex-column col-10 text-end intro-text">
-                <div
-                    class="intro-text-anim align-items-center justify-content-end"
-                    style="height: 7vh;"
-                >
-                    <span
-                        style="font-family: monospace; animation-delay: 0s !important"
-                        >Case·Studies·03</span
-                    >
-                </div>
-                <div
-                    class="intro-text-anim align-items-center justify-content-end"
-                >
-                    <h1
-                        class="as-font"
-                        style="animation-delay: .1s !important; font-size: 9vw;"
-                    >
-                        BQM DevOps
-                    </h1>
-                </div>
-                <div
-                    class="intro-text-anim align-items-center justify-content-end"
-                    style="height: fit-content;"
-                >
-                    <h2
-                        class="as-font-alt mb-4"
-                        style="font-family: monospace; animation-delay: .2s !important"
-                    >
-                        DevOps Implementation for Uruguay's largest e-Gaming
-                        platform
-                    </h2>
-                </div>
-                <div
-                    class="cs-footer col-12 d-flex flex-row justify-content-end mt-2"
-                >
-                    <button class="btn btn-primary btn_case_study_interaction"
-                        >Explore This Case
-                        <!-- <div class="hidden-icon">
-                            <i-feather name="arrow-down" class="icon-sm"
-                            ></i-feather>
-                        </div> -->
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <style>
     h1 {

@@ -4,7 +4,6 @@
 // import "../styles/global.css";
 import "../styles/keyframes.css";
 import "../styles/fonts.css";
-// import "../styles/bootstrap_custom.css"
 
 export interface Props {
 	title: string;
@@ -50,6 +49,11 @@ const { title, description, image = "/placeholder-social.jpg" } = Astro.props;
 	href="../styles/bootstrap_custom.css"
 	rel="stylesheet"
 /> -->
+<link
+	href="css/bootstrap_custom.css"
+	rel="preload"
+	as="stlye"
+/>
 <link
 	href="css/bootstrap_custom.css"
 	rel="stylesheet"
