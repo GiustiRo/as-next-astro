@@ -126,7 +126,7 @@ textarea {
 }.grain-layer {
     height: 300%;
     width: 300%;
-    background-image: url("/public/images/grain.png");
+    background-image: url("/images/grain.png");
     opacity: 0.05;
     -webkit-animation: animateGrain 8s steps(5) infinite;
     animation: animateGrain 8s steps(5) infinite;
