@@ -60,45 +60,45 @@
         style="position:relative; z-index: -1; gap:5vw; margin-left: 10vw;"
     >
         <div
-            class="mx-2 description panel blue d-flex flex-column justify-content-between align-items-start w-75 bg-white text-left p-4 shadow-lg"
+            class="mx-2 description panel blue d-flex flex-column justify-content-center align-items-center w-75 bg-white text-center p-5 shadow-lg"
         >
             <h1 class="fs-h2 fw-bold text-black w-100">
                 Cross-platform Development
             </h1>
-            <p class="text-black as-font-alt">
+            <p class="text-black as-font-alt size-2">
                 We design and develop high- performing and robust mobile and web
                 applications to meet your business needs. Our team has
                 engineered and delivered quality- assured solutions in all major
                 industries.
             </p>
-            <div class="lottie" id="lottie-cross-platform"></div>
+            <!-- <div class="lottie" id="lottie-cross-platform"></div> -->
         </div>
         <div
-            class="mx-2 description panel blue d-flex flex-column justify-content-between align-items-start w-75 bg-white text-left p-4 shadow-lg"
+            class="mx-2 description panel blue d-flex flex-column justify-content-center align-items-center w-75 bg-white text-center p-5 shadow-lg"
         >
             <h1 class="fs-h2 fw-bold text-black w-100">
                 Emerging Technologies
             </h1>
-            <p class="text-black as-font-alt">
+            <p class="text-black as-font-alt size-2">
                 Partner with us to create an MVP for your ideas in areas like
                 AR, VR, AI, Blockchain, and IoT. From research and development
                 to project delivery, our emerging technologies solution garage
                 will help you create a proof of concept for your innovative
                 vision at a fraction of the cost.
             </p>
-            <div class="lottie" id="lottie-emerging-technologies"></div>
+            <!-- <div class="lottie" id="lottie-emerging-technologies"></div> -->
         </div>
         <div
-            class="mx-2 description panel blue d-flex flex-column justify-content-between align-items-start w-75 bg-white text-left p-4"
+            class="mx-2 description panel blue d-flex flex-column justify-content-center align-items-start w-75 bg-white text-center p-5"
         >
             <h1 class="fs-h2 fw-bold text-black w-100">Staff Augmentation</h1>
-            <p class="text-black as-font-alt">
+            <p class="text-black as-font-alt size-2">
                 With our staff augmentation garage, we serve as an extended arm
                 of your in-house engineering team. Flexible, nimble,
                 cost-effective, and powerful, our team provides extended
                 expertise that is crucial to your business.
             </p>
-            <div class="lottie" id="lottie-staff-augmentation"></div>
+            <!-- <div class="lottie" id="lottie-staff-augmentation"></div> -->
         </div>
     </div>
 </div>
@@ -164,6 +164,12 @@
         max-height: 25vh;
         width: 100%;
         height: 25vh;
+    }
+    .size-2{
+        font-size: 1.2rem;
+    }
+    .fs-h2{
+        font-size: 2.5rem;
     }
 </style>
 <script>
@@ -235,6 +241,6 @@
 
     setNewIntersection("#section-card-one", (entry) => {
         hzScrollSection();
-        loadLotties();
+        // loadLotties();
     });
 </script>
